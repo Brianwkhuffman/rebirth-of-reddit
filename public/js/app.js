@@ -29,6 +29,7 @@ function loadpageJs() {
     mainBody.appendChild(divBox);
     if (thisData[i].data.preview) {
       let thisPic = document.createElement("img");
+      thisPic.className = "picture";
       thisPic.src = thisData[i].data.preview.images[0].source.url.replace(
         /&amp;/g,
         "&"
@@ -41,6 +42,7 @@ function loadpageJs() {
       thisPic.src = placeholderImg;
       divBox.appendChild(thisPic);
     }
+
     let thisTitle = document.createElement("h2");
     thisTitle.innerHTML = thisData[i].data.title;
     divBox.appendChild(thisTitle);
@@ -61,18 +63,17 @@ function loadpageJs() {
     divBox.appendChild(thisInfo);
 
     let thisBody = document.createElement("p");
-    if (thisData[i].data.selftext.length <= 100) {
+    if (thisData[i].data.selftext.length <= 99) {
       thisBody.innerHTML = thisData[i].data.selftext;
     } else {
-      thisBody.innerHTML = thisData[i].data.selftext.slice(0, 99);
+      thisBody.innerHTML = thisData[i].data.selftext.slice(0, 98);
       let readMore = document.createElement("button");
-      readMore.innerHTML = "More...";
+      readMore.innerHTML = "More..";
       readMore.style.display = "block";
       let readLess = document.createElement("button");
       readLess.innerHTML = "Less...";
       readLess.style.display = "none";
       readMore.addEventListener("click", function() {
-        readMore.style.display = "none";
         thisBody.innerHTML = thisData[i].data.selftext;
         readLess.style.display = "block";
         thisBody.appendChild(readLess);
@@ -87,6 +88,7 @@ function loadpageJs() {
     divBox.appendChild(thisBody);
   }
 }
+
 randomSub.addEventListener("click", function() {
   let newReq = new XMLHttpRequest();
   newReq.open("GET", makeRandom);
